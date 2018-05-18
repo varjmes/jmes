@@ -2,9 +2,7 @@ import Link from "next/link"
 
 const Menu = ({ href, label }) => (
   <li>
-    <Link href={href}>
-      <a>{label}</a>
-    </Link>
+    <a href={href}>{label}</a>
     <style jsx>{`
        {
         padding: 6px 4px;
@@ -13,11 +11,21 @@ const Menu = ({ href, label }) => (
       a {
         color: #fff;
         text-decoration: none;
-        font-size: 1em;
+        font-size: 1.5em;
+      }
+
+      a:hover {
+        border-bottom: 3px solid white;
       }
 
       li {
         display: inline-block;
+        width: 100%;
+        text-align: center;
+      }
+
+      li:first-of-type {
+        text-align: left;
       }
     `}</style>
   </li>
@@ -27,9 +35,9 @@ export default ({ children }) => (
   <main>
     <nav>
       <ul>
-        <Menu href={"/"} label={"HOME"} />
-        {["news", "newest", "ask", "jobs"].map(link => (
-          <Menu key={link} href={`/${link}`} label={link.toUpperCase()} />
+        <Menu href={"/"} label={"JMES"} />
+        {["reading", "watching", "writing", "contact"].map(link => (
+          <Menu key={link} href={`#${link}`} label={link.toLowerCase()} />
         ))}
       </ul>
     </nav>
@@ -68,6 +76,10 @@ export default ({ children }) => (
 
         ul {
           list-style-type: none;
+          display: flex;
+          width: 100%;
+          justify-content: center;
+          align-items: center;
         }
       }
     `}</style>
