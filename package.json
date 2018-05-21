@@ -6,7 +6,15 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start -p 8000"
+    "start": "next start -p 8000",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "jest": {
+    "setupFiles": ["./setupTests.js"],
+    "snapshotSerializers": ["enzyme-to-json/serializer"],
+    "testPathIgnorePatterns": ["<rootDir>/.next/", "<rootDir>/node_modules/"]
   },
   "repository": {
     "type": "git",
@@ -19,6 +27,7 @@
   },
   "homepage": "https://github.com/varjmes/jmes#readme",
   "dependencies": {
+    "babel-jest": "^22.4.4",
     "isomorphic-fetch": "^2.2.1",
     "next": "^6.0.3",
     "react": "^16.3.2",
@@ -26,7 +35,12 @@
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.4",
+    "jest": "^22.4.4",
     "next-manifest": "^1.5.0",
-    "next-workbox": "^1.4.1"
+    "next-workbox": "^1.4.1",
+    "react-test-renderer": "^16.3.2"
   }
 }
