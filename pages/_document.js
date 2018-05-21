@@ -1,13 +1,19 @@
-import Document, { Head, Main, NextScript } from "next/document"
-import flush from "styled-jsx/server"
-import Manifest from "next-manifest/manifest"
-import ServiceWorker from "next-workbox/service-worker"
+import Document, { Head, Main, NextScript } from 'next/document'
+import { ServerStyleSheet } from 'styled-components'
+import Manifest from 'next-manifest/manifest'
+import ServiceWorker from 'next-workbox/service-worker'
 
 export default class extends Document {
   static getInitialProps({ renderPage }) {
+    const sheet = new ServerStyleSheet()
+    const page = renderPage(App => props =>
+      sheet.collectStyles(<App {...props} />)
+    )
+    const styleTags = sheet.getStyleElement()
+
     return {
-      ...renderPage(),
-      styles: flush()
+      ...page,
+      styleTags
     }
   }
 
@@ -16,11 +22,12 @@ export default class extends Document {
       <html lang="en">
         <Head>
           <title>jmes</title>
+          {this.props.styleTags}
           <Manifest themeColor="#000000" />
           <ServiceWorker
-            src={"/static/workbox/sw.js"}
-            scope={"../../"}
-            unregister={process.env.NODE_ENV !== "production"}
+            src={'/static/workbox/sw.js'}
+            scope={'../../'}
+            unregister={process.env.NODE_ENV !== 'production'}
           />
         </Head>
         <body>

@@ -1,8 +1,8 @@
-const { createServer } = require("http")
-const next = require("next")
+const { createServer } = require('http')
+const next = require('next')
 
 const app = next({
-  dev: process.env.NODE_ENV !== "production"
+  dev: process.env.NODE_ENV !== 'production'
 })
 
 const handle = app.getRequestHandler()
@@ -10,9 +10,9 @@ const port = process.env.PORT || 3000
 
 app.prepare().then(() => {
   createServer((req, res) => {
-    if (req.url.startsWith("/static")) {
-      if (req.url.endsWith("/sw.js")) {
-        res.setHeader("Service-Worker-Allowed", "")
+    if (req.url.startsWith('/static')) {
+      if (req.url.endsWith('/sw.js')) {
+        res.setHeader('Service-Worker-Allowed', '')
       }
       app.serveStatic(req, res, `./${req.url}`)
     } else {
